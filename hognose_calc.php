@@ -15,7 +15,8 @@
 
 <?php
 	/*Connection variables at top
-	* Makes it easy to change if needed*/
+	* Makes it easy to change if needed
+	Which you will need to do for your own!*/
 $server="localhost";
 $username="kortneyjohnson";
 $password="";
@@ -41,6 +42,7 @@ function array_to_table($rows)
         //Table Headers, I wanted to variable do them but had to hardcode...
         echo "<th>".'Genotypic Name',"</th>";
         echo "<th>".'Visual Morph',"</th>";
+		echo "<th>". 'Genotype for Calculator Input', "</th>";
     
         // Table body
         $body = array_slice($rows, 1, null, true);
@@ -52,33 +54,43 @@ function array_to_table($rows)
           echo "</tr>";
         }     
       echo "</table>";
+	 /*adds some whitespace after the table for formatting prettiness*/ 
 	  printf('<br>');
 	  printf('<br>');
     }
     
 
-    /* Run a basic SQL query and makes it an array*/
-$result = mysqli_query($connect, "SELECT genotypicName, visualMorph FROM parent2");
+    /* Run a basic SQL query and makes it an array to produce the TABLE data*/
+$result = mysqli_query($connect, "SELECT genotypicName, visualMorph, genotype FROM parent2");
 $rows= mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    /*Prints the table for viewing*/
-	print(array_to_table($rows));
+   
+	/*Prints the table for viewing*/
+print(array_to_table($rows));
 
-/*trying to drop down menu*/
+	/*Drop down menu for parent1*/
+	/*gets the data*/
 $sqlSelect="SELECT genotypicName FROM parent1";
 $result = $connect -> query ($sqlSelect);
+	/*title/words*/
 echo '<strong>Parent 1 Choices Are:		</strong>';
+	/*makes the actual dropdown menu*/
 echo "<select id='genotypicName'>";
 while ($row = mysqli_fetch_array($result)) {
 	echo "<option value='" . $row['genotypicName'] . "'>" . $row['genotypicName'] . "</option>";
 }
 echo "</select>";
 
+	/*Drop down menu for parent2*/
+	/*gets the data*/
 $sqlSelect="SELECT genotypicName FROM parent2";
 $result = $connect -> query ($sqlSelect);
+	/*once again, white space of pretty formatting*/
 printf('<br>');
 printf('<br>');
+	/*title/words*/
 echo '<strong>Parent 2 Choices Are:		</strong>';
+	/*makes the actual dropdown menu*/
 echo "<select id='genotypicName'>";
 while ($row = mysqli_fetch_array($result)) {
 	echo "<option value='" . $row['genotypicName'] . "'>" . $row['genotypicName'] . "</option>";
@@ -88,16 +100,16 @@ echo "</select>";
 
 
 
-
-/*Always close your connection. 
- * Its a courtesy to your fellow users.
+/*Always close your connection.
  */
 mysqli_close($connect);
 
 ?>
 
 
-<!--This section of code formats the individual snake images-->
+	<!--This section of code formats the individual snake images
+	it is worth noting that the paths for the images are hardcoded based on where I 
+	have them saved on the Odin server, you will likely need to modify these paths! -->
 <!DOCTYPE html>
 <html>
 <body>
