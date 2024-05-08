@@ -10,3 +10,5 @@ The python file has been edited to reorder the output alphabetically with upperc
 ease of het detection. So this: "xXdSds" becomes: "ddDsXx".
 
 Currently, the webpage will provide you with the needed genotype that you can use with the python script, but they do not work together, yet.
+
+Here is the link to the webpage: http://odin.unomaha.edu/~kortneyjohnson/hognose_calc.php
